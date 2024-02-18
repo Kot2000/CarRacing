@@ -186,6 +186,12 @@ button {
   src: url('./assets/fonts/Poppins-Black.ttf');
 }
 
+@font-face {
+  font-family: Source Code Pro;
+  src: url('./assets/fonts/SourceCodePro-Light.ttf');
+
+}
+
  /* The switch - the box around the slider */
  .switch {
    position: relative;
@@ -226,8 +232,21 @@ button {
    transition: .4s;
  }
 
+ .slider.green::before {
+  font-family: Source Code Pro;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 11px;
+  content: "</>";
+ }
+
  input:checked+.slider {
    background-color: #2196F3;
+ }
+
+ input:checked+.slider.green {
+  background-color: #21f360;
  }
  
  input:checked+.slider:before {

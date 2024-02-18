@@ -44,6 +44,16 @@ const NC_DOM = document.querySelector("#NC").querySelector("input");
 
 const toggleSettinsNC = new ToggleSetting(NC_DOM, 'NC', false);
 
+// DM
+
+const DM_DOM = document.querySelector("#DM").querySelector("input");
+
+const toggleSettinsDM = new ToggleSetting(DM_DOM, 'DM', false);
+
+toggleSettinsDM.onTurned(() => {
+  location.reload();
+});
+
 // CHS
 
 const DG_DOM = document.querySelector(".DG");
