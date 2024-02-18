@@ -1,0 +1,246 @@
+html, body {
+   width: 100%;
+   height: 100%;
+}
+
+body {
+    margin: 0 0 0 0;
+    font-size: 15pt;
+    background: #121212;
+}
+
+#overlay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  -webkit-text-stroke: 2px black;
+  user-select: none;
+}
+
+#score {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#score-count {
+  font-size: 2em;
+}
+#score-text {
+  font-size: 2.5em;
+}
+#hi-score-count {
+  font-size: 1em;
+}
+
+#play {
+  z-index: 1;
+  position: absolute;
+  font-size: 3em;
+  background: -webkit-linear-gradient(#fff, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#settings-btn {
+  font-size: 1.5em;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#settings-btn:hover {
+  -webkit-text-stroke: 2px white;
+}
+
+#settings-box {
+  overflow: hidden;
+  display: none;
+  z-index: 2;
+  width: 80%;
+  height: 80%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 2px black;
+  border-radius: 5px;
+  font-size: 1.5em;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+}
+
+#settings {
+  overflow: auto;
+  z-index: 2;
+  width: 100%;
+  height: calc(100% - 41.25px);
+  background: transparent;
+  font-size: 18px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+  -webkit-text-stroke: 0;
+}
+
+.visible {
+  display: flex !important;
+}
+
+#settings span {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#settings-button {
+  padding: 10px;
+  border: #ff5252 solid 3px;
+  border-radius: 10px;
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#settings-button:hover {
+  color: #fff;
+  background: #ff5252;
+}
+
+#download-game-btn {
+  padding: 10px;
+  border: #4dff82 solid 3px;
+  border-radius: 10px;
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#download-game-btn:hover {
+  color: #fff;
+  background: #4dff82;
+}
+
+#repo-game-btn {
+  padding: 10px;
+  border: #1b1e1f solid 3px;
+  border-radius: 10px;
+  transition: background 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#repo-game-btn:hover {
+  color: #fff;
+  background: #1b1e1f;
+}
+
+
+.section {
+  background: #e9f3f7;
+  padding: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 10px;
+}
+
+.author-section {
+  background: #e9f3f7;
+  padding: 10px;
+  padding-left: 80px;
+  padding-right: 80px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.version-section {
+  background: transparent;
+  font-size: 10px;
+}
+
+button {
+  outline: none !important;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+* {
+  overflow: hidden;
+  font-family: Poppins Black;
+}
+
+@font-face {
+  font-family: Poppins Black;
+  src: url('./assets/fonts/Poppins-Black.ttf');
+}
+
+ /* The switch - the box around the slider */
+ .switch {
+   position: relative;
+   display: inline-block;
+   width: 45px;
+   height: 25.50px;
+ }
+
+ /* Hide default HTML checkbox */
+ .switch input {
+   opacity: 0;
+   width: 0;
+   height: 0;
+ }
+
+ /* The slider */
+ .slider {
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #ccc;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+
+ .slider:before {
+   position: absolute;
+   content: "";
+   height: 20.50px;
+   width: 20.50px;
+   left: 3px;
+   bottom: 3px;
+   background-color: white;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+
+ input:checked+.slider {
+   background-color: #2196F3;
+ }
+ 
+ input:checked+.slider:before {
+   -webkit-transform: translateX(20px);
+   -ms-transform: translateX(20px);
+   transform: translateX(20px);
+ }
+
+ /* Rounded sliders */
+ .slider.round {
+   border-radius: 34px;
+ }
+
+ .slider.round:before {
+   border-radius: 50%;
+ }

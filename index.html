@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Car Racing</title>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Javascript --> 
+  <script src="https://unpkg.com/pixi.js@7.x/dist/pixi.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bramstein/fontfaceobserver@master/fontfaceobserver.js"></script>
+  <script src="main.js" type="module" defer></script>
+  <script src="fpsCounter.js" type="module" defer></script>
+  <script src="settings.js" type="module" defer></script>
+</head>
+
+<body>
+  <div id="overlay">
+    <div id="score">
+      <span id="score-text">WYNIK</span>
+      <span id="score-count">000,000</span>
+      <span id="hi-score-count">000,000</span>
+    </div>
+    <div id="settings-box" class="">
+      Ustawienia
+      <div id="settings">
+        <span>
+          Pokaż Klatki Na Sekundę (FPS)
+          <label id="FPS" class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </span>
+        
+        <span>
+          Zapisuj Najwyższy Wynik
+          <label id="SHS" class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+        </span>
+        
+        <button id="settings-button" class="CHS">Usuń Najwyższy Wynik</button>
+        
+        <span class="section"><<< Modyfikacje >>></span>
+        
+        <span>
+          Ultra Szybkość!!!
+          <label id="US" class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </span>
+        
+        <span>
+          Brak Kolizji
+          <label id="NC" class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </span>
+        
+        <span class="section"><<< Inne >>></span>
+        
+        <span>
+          <button id="download-game-btn" class="DG">Pobierz Grę</button>
+          <button id="repo-game-btn" class="RG">Repozytorium Gry</button>
+        </span>
+        <span class="author-section">Gra stworzona przez Igora Choińskiego</span>
+        <span class="version-section">Wersia Gry: v1.0.1f-BETA</span>
+        
+      </div>
+      
+    </div>
+    <button id="play">GRAJ</button>
+    <button id="settings-btn">⚙️</button>
+  </div>
+</body>
+</html>
