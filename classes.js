@@ -1,4 +1,4 @@
-export const devMode = false;
+export const devMode = true || localStorage.getItem("DM");
 
 function testForCollisions(xy, xy2)
 {
@@ -167,7 +167,13 @@ export class carGroup {
   
   velTime(playerBounds) {
     this.scroll += 1;
-    this.speed += 0.001;
+    if (localStorage.getItem("US") == "false") {
+      this.speed += 0.001;
+      this.max_speed = 50;
+    } else {
+      this.speed += 0.100;
+      this.max_speed = 100;
+    }
     
     if (this.scroll > this.min_scroll - this.max_speed) {
       this.cars.push(new car(this.app, this.car_types[Math.floor(Math.random() * this.car_types.length)], Math.floor(Math.random() * 2) + 1, this.sizeOfRoad, this.max_speed));
@@ -198,6 +204,7 @@ export class carGroup {
     }
     this.scroll = 0;
     this.speed = 0;
+    this.min_scroll = 0;
     this.cars = [];
   }
 }
@@ -697,4 +704,82 @@ export class HiScore extends GUI {
       (number > this.get_num() && localStorage.getItem('SHS') === 'true') ? number : this.get_num(),
     )
   };
+}
+
+export class RocketMiddle {
+  constructor (app) {
+    this.app = app;
+    this.path = "./assets/images/rocket_bomb.png";
+    
+    let player = PIXI.Sprite.from(this.path);
+    
+    player.scale.x = 0.15;
+    player.scale.y = 0.15;
+    
+    player.anchor.set(0.5);
+    
+    player.x = (this.app.screen.width / 2);
+    player.y = -100;
+    
+    app.stage.addChild(player);
+    
+    this.speed = 5;
+    
+    this.player = player;
+    
+    this.collPart = this.show_collision();
+  }
+
+  velTime(playerBounds) {
+    this.player.y += this.speed;
+    this.collPart.x = this.player.x - (this.collPartX / 2);
+    this.collPart.y = this.player.y - (this.collPartY / 2);
+    
+    //return this.calcCollision(playerBounds);
+  }
+  
+  getCar() {
+    return this.player;
+  }
+  
+  show_collision() {
+    this.collPartX = 75;
+    this.collPartY = 110;
+    
+    let background = new PIXI.Graphics();
+    background.beginFill(0xff0000);
+    background.drawRect(0, 0, this.collPartX, this.collPartY);
+    
+    if (devMode === true) {
+      background.alpha = 0.5;
+    } else {
+      background.alpha = 0;
+    }
+    
+    this.app.stage.addChild(background);
+    
+    return background;
+  }
+  
+  calcCollision(playerBounds) {
+    if (!(this.player.y > playerBounds.y + (playerBounds.height / 2) + 100)) {
+      
+      if (testForCollisions(playerBounds, this.getBounds())) {
+
+        if (devMode === true) {
+          this.collPart.alpha = 1;
+        }
+        return true;
+      }
+    } else {
+      if (devMode === true) {
+        this.collPart.alpha = 0;
+      }
+      return false;
+    }
+  }
+  
+  getBounds() {
+    return { x: this.collPart.x, y: this.collPart.y, width: this.collPart.width, height: this.collPart.height };
+  }
 }

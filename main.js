@@ -1,4 +1,4 @@
-import {road, player, car, carGroup, BIOME, GUI, HiScore, devMode} from './classes.js';
+import {road, player, car, carGroup, BIOME, GUI, HiScore, devMode, RocketMiddle} from './classes.js';
 
 let running = false;
 
@@ -26,6 +26,8 @@ const score = new GUI(document.getElementById("score-count"));
 
 const hiscore = new HiScore(document.getElementById("hi-score-count"));
 
+const NewRocket = new RocketMiddle(app);
+
 app.stage.interactive = true;
 
 const play_btn = document.getElementById("play");
@@ -48,6 +50,7 @@ score.format(['en'], 0);
 app.ticker.add((delta) =>
 {
   NewRoad.scrollTime();
+  NewRocket.velTime();
   //NewBIOME.scrolling();
   if (running || devMode) {
     if (!((CarGroup.getDistance() / 10)%10)) {
@@ -56,11 +59,13 @@ app.ticker.add((delta) =>
     hiscore.format(['en'],Math.floor(CarGroup.getDistance() / 10));
     score.format(['en'],Math.floor(CarGroup.getDistance() / 10));
     if (CarGroup.velTime(NewPlayer.getBounds()) || NewBIOME.calcCollision(NewPlayer.getBounds())) {
-      running = false;
-      score.format(['en'], Math.floor(0));
-      play_btn.style.display = "block";
-      NewPlayer.reset();
-      CarGroup.reset();
+      if (localStorage.getItem("#NC") == "false") {
+        running = false;
+        score.format(['en'], Math.floor(0));
+        play_btn.style.display = "block";
+        NewPlayer.reset();
+        CarGroup.reset();
+      }
     }
   }
   //NewPlayer.carCollisions(CarGroup.getArray());
