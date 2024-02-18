@@ -1,4 +1,8 @@
-export const devMode = true || localStorage.getItem("DM");
+export const devModeString = localStorage.getItem("DM").toLowerCase();
+export let devMode = false;
+if (devModeString == 'true') {
+  devMode = true;
+}
 
 function testForCollisions(xy, xy2)
 {
@@ -20,7 +24,7 @@ export class road {
     const rectXScale = (this.app.screen.width * 0.5 >= 300 ? this.app.screen.width * 0.5 : 300);
     const fixedRectXScale = (rectXScale <= 500 ? rectXScale : 500);
     
-    if (devMode) {
+    if (devMode == true) {
       obj.alpha = 0.5;
     }
     
@@ -719,7 +723,7 @@ export class RocketMiddle {
     player.anchor.set(0.5);
     
     player.x = (this.app.screen.width / 2);
-    player.y = -100;
+    player.y = -2000;
     
     app.stage.addChild(player);
     
@@ -730,12 +734,26 @@ export class RocketMiddle {
     this.collPart = this.show_collision();
   }
 
+  reset() {
+    this.player.scale.x = 0.15;
+    this.player.scale.y = 0.15;
+    
+    this.player.anchor.set(0.5);
+    
+    this.player.x = (this.app.screen.width / 2);
+    this.player.y = -2000;
+  }
+
   velTime(playerBounds) {
     this.player.y += this.speed;
     this.collPart.x = this.player.x - (this.collPartX / 2);
     this.collPart.y = this.player.y - (this.collPartY / 2);
+
+    if (this.player.y > this.app.screen.height + 100) {
+      this.player.y = -2000;
+    }
     
-    //return this.calcCollision(playerBounds);
+    return this.calcCollision(playerBounds);
   }
   
   getCar() {
@@ -760,6 +778,8 @@ export class RocketMiddle {
     
     return background;
   }
+
+
   
   calcCollision(playerBounds) {
     if (!(this.player.y > playerBounds.y + (playerBounds.height / 2) + 100)) {
@@ -769,6 +789,10 @@ export class RocketMiddle {
         if (devMode === true) {
           this.collPart.alpha = 1;
         }
+
+        const video = new Video(this.app, "./assets/meme/exp1.mp4");
+        video.create$play();
+        setTimeout(() => video.remove$stop(), 2500);
         return true;
       }
     } else {
@@ -781,5 +805,28 @@ export class RocketMiddle {
   
   getBounds() {
     return { x: this.collPart.x, y: this.collPart.y, width: this.collPart.width, height: this.collPart.height };
+  }
+}
+
+export class Video {
+  constructor(app, video_path, removeOnEnd = true) {
+    this.app = app;
+    this.video_path = video_path;
+  }
+
+  create$play() {
+    const texture = PIXI.Texture.from(this.video_path);
+    const videoSprite = new PIXI.Sprite(texture);
+    this.videoSprite = videoSprite;
+
+    this.videoSprite.width = this.app.screen.width;
+    this.videoSprite.height = this.app.screen.height;
+
+    this.app.stage.addChild(this.videoSprite);
+  }
+
+  remove$stop() {
+    this.app.stage.removeChild(this.videoSprite);
+    this.videoSprite = undefined;
   }
 }

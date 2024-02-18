@@ -50,7 +50,6 @@ score.format(['en'], 0);
 app.ticker.add((delta) =>
 {
   NewRoad.scrollTime();
-  NewRocket.velTime();
   //NewBIOME.scrolling();
   if (running || devMode) {
     if (!((CarGroup.getDistance() / 10)%10)) {
@@ -58,12 +57,13 @@ app.ticker.add((delta) =>
     }
     hiscore.format(['en'],Math.floor(CarGroup.getDistance() / 10));
     score.format(['en'],Math.floor(CarGroup.getDistance() / 10));
-    if (CarGroup.velTime(NewPlayer.getBounds()) || NewBIOME.calcCollision(NewPlayer.getBounds())) {
-      if (localStorage.getItem("#NC") == "false") {
+    if (CarGroup.velTime(NewPlayer.getBounds()) || NewBIOME.calcCollision(NewPlayer.getBounds()) || NewRocket.velTime(NewPlayer.getBounds())) {
+      if (localStorage.getItem("NC") == "false") {
         running = false;
         score.format(['en'], Math.floor(0));
         play_btn.style.display = "block";
         NewPlayer.reset();
+        NewRocket.reset();
         CarGroup.reset();
       }
     }
