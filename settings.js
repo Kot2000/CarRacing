@@ -48,7 +48,7 @@ const toggleSettinsNC = new ToggleSetting(NC_DOM, 'NC', false);
 
 const DG_DOM = document.querySelector(".DG");
 
-const buttonSettingDG = new RedirectButton(DG_DOM, "https://www.example.com/");
+const buttonSettingDG = new RedirectButton(DG_DOM, "https://github.com/Kot2000/CarRacing/archive/refs/tags/1.0.1f-BETA.zip");
 
 // RG
 
