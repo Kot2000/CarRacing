@@ -146,6 +146,16 @@ export class RedirectButton extends ButtonSetting {
   constructor(buttonElement, redirectURL) {
     super(buttonElement);
     this.redirectURL = redirectURL;
+
+    this.buttonElement = buttonElement;
+
+    // Initialize event handlers
+    this.clickHandler = null;
+    this.loadHandler = null;
+    this.eventHandlers = {};
+
+    // Add event listener for button click
+    this.buttonElement.addEventListener('click', this.handleClick.bind(this));
   }
 
   // Override the handleClick method to open a new window or tab with the specified URL
@@ -156,5 +166,52 @@ export class RedirectButton extends ButtonSetting {
     }
     // Open a new window or tab with the specified URL
     window.open(this.redirectURL, '_blank');
+  }
+}
+
+export class ToggableButton extends ButtonSetting {
+  constructor(buttonElement, settingName, defaultValue) {
+    super(buttonElement);
+
+    this.buttonElement = buttonElement;
+
+    // Initialize event handlers
+    this.clickHandler = null;
+    this.loadHandler = null;
+    this.eventHandlers = {};
+
+        // Get the setting name
+        this.settingName = settingName;
+    
+        // Get the default value
+        this.defaultValue = defaultValue;
+    
+        // Check localStorage for the saved setting
+        const savedSetting = localStorage.getItem(this.settingName);
+    
+        // Update the toggle state based on the saved setting or default value
+        if (savedSetting === null) {
+          // If setting not found in localStorage, use default value
+          localStorage.setItem(this.settingName, this.defaultValue);
+        }
+
+    // Add event listener for button click
+    this.buttonElement.addEventListener('click', this.handleClick.bind(this));
+  }
+
+  // Function to handle button click and save to localStorage
+  handleClick() {
+    // Call the click handler function
+    if (typeof this.clickHandler === 'function') {
+      this.clickHandler();
+
+      // Save data to localStorage
+      this.saveToLocalStorage();
+    }
+  }
+
+  // Function to save data to localStorage
+  saveToLocalStorage() {
+    localStorage.setItem(this.settingName, !localStorage.getItem(this.settingName));
   }
 }

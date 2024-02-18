@@ -1,4 +1,4 @@
-export const devModeString = localStorage.getItem("DM").toLowerCase();
+export const devModeString = localStorage.getItem("DM").toLowerCase() || false;
 export let devMode = false;
 if (devModeString == 'true') {
   devMode = true;
@@ -118,6 +118,8 @@ export class player {
     
     this.player.x = this.app.screen.width / 2;
     this.player.y = this.app.screen.height / 1.5;
+    this.collPart.x = this.player.x - (this.collPartX / 2);
+    this.collPart.y = this.player.y - (this.collPartY / 2);
   }
   
   show_collision() {
@@ -349,8 +351,9 @@ export class BIOME {
       bound2.alpha = 0;
     }
     
-    bound2.drawRect(calcs.bound2.padding.x1, 0, calcs.bound2.padding.x2, this.app.screen.height);
-    
+    bound2.drawRect(calcs.bound1.padding.x1, 0, calcs.bound1.padding.x2, this.app.screen.height);
+    bound2.x = calcs.bound2.padding.x1;
+
     this.app.stage.addChild(bound, bound2);
     
     return [bound, bound2];
@@ -362,14 +365,14 @@ export class BIOME {
         if (devMode === true) {
           this.collPart1.alpha = 1;
         }
-        return false;
+        return true;
       }
       if (testForCollisions(playerBounds, this.getBounds()[1])) {
       
         if (devMode === true) {
           this.collPart2.alpha = 1;
         }
-        return false;
+        return true;
       }
     return false;
   }

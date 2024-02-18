@@ -1,4 +1,4 @@
-import {ElementObserver, ToggleSetting, ButtonSetting, RedirectButton} from './settingsClass.js';
+import {ElementObserver, ToggleSetting, ButtonSetting, RedirectButton, ToggableButton} from './settingsClass.js';
 
 // FPS
 const FPS_DOM = document.querySelector("#FPS").querySelector("input");
@@ -65,3 +65,19 @@ const buttonSettingDG = new RedirectButton(DG_DOM, "https://github.com/Kot2000/C
 const RG_DOM = document.querySelector(".RG");
 
 const buttonSettingRG = new RedirectButton(RG_DOM, "https://github.com/Kot2000/CarRacing.git");
+
+// OKG
+
+const OKG_DOM = document.querySelector(".OKG");
+
+const buttonSettingOKG = new ToggableButton(OKG_DOM, "OKG", true);
+
+if ((localStorage.getItem("OKG") == 'true' ? true : false) === true) {
+  OKG_DOM.parentElement.style.display = 'flex';
+} else {
+  OKG_DOM.parentElement.style.display = 'none';
+}
+
+buttonSettingOKG.onClick(() => {
+  OKG_DOM.parentElement.style.display = 'none';
+});
